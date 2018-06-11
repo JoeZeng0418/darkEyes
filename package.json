@@ -1,0 +1,22 @@
+{
+  "name": "dark_eyes",
+  "version": "1.0.0",
+  "description": "voice based email app for visually impaired people",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoeZeng0418/darkEyes.git"
+  },
+  "author": "Shi Zeng, Muyao Xu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoeZeng0418/darkEyes/issues"
+  },
+  "homepage": "https://github.com/JoeZeng0418/darkEyes#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
