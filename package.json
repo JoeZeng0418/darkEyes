@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/JoeZeng0418/darkEyes#readme",
   "dependencies": {
-    "express": "^4.16.3"
+    "bundle": "^2.1.0",
+    "express": "^4.16.3",
+    "gulp": "^3.9.1",
+    "microsoft-speech-browser-sdk": "0.0.12"
   }
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+	<button id="startBtn" type="button" name="startBtn">Start My Answer</button>
+    <button id="stopBtn" type="button" name="stopBtn" disabled="true">Finish This Question</button>
+    <div id="answer">
+
+    </div>
+
+    <script src="distrib/speech.sdk.bundle.js"></script>
+    <script src="scripts/recognition_usage.js"></script>
+    <script type="text/javascript">
+    	function printText(result){
+    	console.log(result);
+    }
+    var startBtn = document.getElementById('startBtn');
+    var stopBtn = document.getElementById('stopBtn');
+    var recognizer = RecognizerSetup(SDK,"Dictation","en-US","Simple","11751032b8a04e989a9f8d2dc4de5797");
+    var audio_content = "";
+    startBtn.addEventListener("click", function(){
+      RecognizerStart(SDK, recognizer, printText);
+      startBtn.disabled = true;
+      stopBtn.disabled = false;
+      audio_content+="hh";
+    });
+    stopBtn.addEventListener("click", function(){
+      RecognizerStop(SDK, recognizer);
+      startBtn.disabled = false;
+      stopBtn.disabled = true;
+    });
+    
+  </script>
+</body>
+</html>
