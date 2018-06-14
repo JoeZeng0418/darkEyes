@@ -61,11 +61,11 @@ class SampleClient {
       });
       // check if we have previously stored a token
       fs.readFile(TOKEN_PATH, (err, tokens) => {
-        console.log('try to read file');
+        // console.log('try to read file');
         if (err) {
           return  console.log('Cannot find file');
         }
-        console.log(tokens);
+        // console.log(tokens);
         this.oAuth2Client.credentials = JSON.parse(tokens);
         resolve(this.oAuth2Client);
       })
