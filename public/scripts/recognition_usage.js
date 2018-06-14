@@ -76,33 +76,33 @@ function RecognizerStart(SDK, recognizer, callback) {
                 break;
             case "SpeechStartDetectedEvent" :
                 console.log("Listening_DetectedSpeech_Recognizing");
-                console.log(JSON.stringify(event.Result)); // check console for other information in result
+                // console.log(JSON.stringify(event.Result)); // check console for other information in result
                 break;
             case "SpeechHypothesisEvent" :
-                console.log(JSON.stringify(event.Result)); // check console for other information in result
+                // console.log(JSON.stringify(event.Result)); // check console for other information in result
                 break;
             case "SpeechFragmentEvent" :
-                console.log(JSON.stringify(event.Result)); // check console for other information in result
+                // console.log(JSON.stringify(event.Result)); // check console for other information in result
                 break;
             case "SpeechEndDetectedEvent" :
-                console.log("Processing_Adding_Final_Touches");
-                console.log(JSON.stringify(event.Result)); // check console for other information in result
-                callback(event.Result);
+                // console.log("Processing_Adding_Final_Touches");
+                // console.log(JSON.stringify(event.Result)); // check console for other information in result
+                // callback(event.Result);
                 break;
             case "SpeechSimplePhraseEvent" :
-                console.log(JSON.stringify(event.Result, null, 3));
+                // console.log(JSON.stringify(event.Result, null, 3));
                 break;
             case "SpeechDetailedPhraseEvent" :
-                console.log(JSON.stringify(event.Result, null, 3));
+                // console.log(JSON.stringify(event.Result, null, 3));
                 // Get display text
                 if(event.Result.DisplayText != null) {
-                    callback(event.Result);
+                    callback(event.Result.DisplayText);
                 }
                 break;
             case "RecognitionEndedEvent" :
                 break;
             default:
-                console.log(JSON.stringify(event)); // Debug information
+                // console.log(JSON.stringify(event)); // Debug information
                 break;
         }
     })
