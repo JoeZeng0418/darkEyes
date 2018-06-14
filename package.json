@@ -19,7 +19,11 @@
   "dependencies": {
     "bundle": "^2.1.0",
     "express": "^4.16.3",
+    "googleapis": "^27.0.0",
     "gulp": "^3.9.1",
-    "microsoft-speech-browser-sdk": "0.0.12"
+    "microsoft-speech-browser-sdk": "0.0.12",
+    "ms": "^2.1.1",
+    "opn": "^5.3.0",
+    "server-destroy": "^1.0.1"
   }
 }
