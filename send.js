@@ -15,25 +15,30 @@
 
 const {google} = require('googleapis');
 const sampleClient = require('./sampleclient');
+const sub = 'Hello';
+const to = 'muyaoxu@usc.edu';
+const body = 'This is a test email';
+const name = 'Joe'
 
 const gmail = google.gmail({
   version: 'v1',
   auth: sampleClient.oAuth2Client
 });
 
-async function runSample () {
+async function sendEmail (sub, name, to, body) {
   // You can use UTF-8 encoding for the subject using the method below.
   // You can also just use a plain string if you don't need anything fancy.
-  const subject = '🤘 Hello 🤘';
+  // const subject = '🤘 Hello 🤘';
+  const subject = sub;
   const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
   const messageParts = [
     'From: Justin Beckwith <beckwith@google.com>',
-    'To: Justin Beckwith <beckwith@google.com>',
+    `To: ${name} <${to}>`,
     'Content-Type: text/html; charset=utf-8',
     'MIME-Version: 1.0',
     `Subject: ${utf8Subject}`,
     '',
-    'This is a message just to say hello.',
+    `${body}`,
     'So... <b>Hello!</b>  🤘❤️😎'
   ];
   const message = messageParts.join('\n');
@@ -45,30 +50,16 @@ async function runSample () {
     .replace(/\//g, '_')
     .replace(/=+$/, '');
 
-  // const res = await gmail.users.messages.send({
-  //   userId: 'me',
-  //   resource: {
-  //     raw: encodedMessage
-  //   }
-  // });
-
-  gmail.users.messages.send({
+  const res = gmail.users.messages.send({
     userId: 'me',
     resource: {
       raw: encodedMessage
     }
-  }).then(res => console.log(res.data));
-
-  // const res = gmail.users.messages.send({
-  //   userId: 'me',
-  //   requestBody: {
-  //     raw: encodedMessage
-  //   }
-  // }, (err, {data}) => {
-  //   if (err) return console.log(err);
-  //   // console.log(data);
-  //   return data;
-  // });
+  }, (err, {data}) => {
+    if (err) return console.log(err);
+    // console.log(data);
+    return data;
+  });
 
   // console.log('Print outside' + res);
   // console.log(res.data);
@@ -84,11 +75,11 @@ const scopes = [
 
 if (module === require.main) {
   sampleClient.authenticate(scopes)
-    .then(c => runSample())
+    .then(c => sendEmail(sub, name, to, body))
     .catch(console.error);
 }
 
 module.exports = {
-  runSample,
+  sendEmail,
   client: sampleClient.oAuth2Client
 };

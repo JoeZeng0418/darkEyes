@@ -80,20 +80,11 @@ async function authenticate (scopes) {
 
 async function runSample () {
   // retrieve user profile
-  try {
-    const res = await plus.people.get({userId: 'me'});
-    console.log(res);
-  }
-  catch(err) {
-    console.log('fetch failed', err);
-  }
-  // const res = await plus.people.get({userId: 'me'});
-  // console.log(res);
-
-  // plus.people.get({userId: 'me'}, (err, {data}) => {
-  //   if (err) return console.log('The API returned an error: ' + err);
-  //   console.log(data);
-  // });
+  
+  plus.people.get({userId: 'me'}, (err, {data}) => {
+    if (err) return console.log('The API returned an error: ' + err);
+    console.log(data);
+  });
 }
 
 
