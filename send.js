@@ -38,8 +38,8 @@ function sendEmail (sub, name, to, body) {
     'MIME-Version: 1.0',
     `Subject: ${utf8Subject}`,
     '',
-    `${body}`,
-    'So... <b>Hello!</b>  🤘❤️😎'
+    `${body}`
+    // 'So... <b>Hello!</b>  🤘❤️😎'
   ];
   const message = messageParts.join('\n');
 
