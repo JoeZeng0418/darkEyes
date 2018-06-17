@@ -3,6 +3,7 @@ var recordingOn = 0;
 $(function(){
 	var startBtn = document.getElementById('startBtn');
 	var stopBtn = document.getElementById('stopBtn');
+	var sendBtn = document.getElementById('sendBtn');
 	// var recognizer = RecognizerSetup(SDK,"Dictation","en-US","Simple","11751032b8a04e989a9f8d2dc4de5797");
 	startBtn.addEventListener("click", function(){
 		recordingOn = 1;
@@ -23,12 +24,21 @@ $(function(){
 			console.log(res);
 		});
 	});
+	sendBtn.addEventListener("click", function() {
+		storeEmail({text: 'Hello from the other side'});
+	});
 	$("#audio")[0].onended = function() {
 		$("#audio source").attr("src","");
 		recordingOn = 1;
     RecognizerStart(SDK, recognizer, getAudio);
 	};
 });
+
+function storeEmail(email) {
+	$.post("/sendEmail", email, function(data, status){
+            // alert("Data: " + data + "\nStatus: " + status);
+    });
+} 
 
 
 function printText(result){
