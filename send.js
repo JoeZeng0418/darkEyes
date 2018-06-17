@@ -20,10 +20,27 @@ const to = 'muyaoxu@usc.edu';
 const body = 'This is a test email';
 const name = 'Joe'
 
+var {Email} = require('./emailModel.js');
+var {mongoose} = require('./mongoose');
+
 const gmail = google.gmail({
   version: 'v1',
   auth: sampleClient.oAuth2Client
 });
+
+function saveToDb(physicalAddr, email, sub, body) {
+  var email = new Email({
+    physicalAddr: physicalAddr,
+    receiverEmail: email,
+    subject: sub,
+    body: body
+  });
+  email.save().then((doc) => {
+    console.log('Sucessfully saved to database' + doc);
+  }, (e) => {
+    console.log(e);
+  });
+}
 
 function sendEmail (sub, name, to, body) {
   // You can use UTF-8 encoding for the subject using the method below.
@@ -49,6 +66,9 @@ function sendEmail (sub, name, to, body) {
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '');
+
+  // Save this email to the database
+  saveToDb('Los Angeles', to, sub, body);
 
   const res = gmail.users.messages.send({
     userId: 'me',

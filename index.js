@@ -2,11 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
+
 // Imports the Google Cloud client library
 const textToSpeech = require('@google-cloud/text-to-speech');
 // email function from send.js
 const send = require('./send.js');
 const sampleClient = require('./sampleclient');
+
+var {Email} = require('./emailModel.js');
+var {mongoose} = require('./mongoose');
 
 var app = express();
 
@@ -84,6 +88,7 @@ app.get('/api/getMusic/:filename',function(req, res){
 		res.send("Error: no such file");
 	}
 });
+
 app.get('/api/end',function(req, res){
 	console.log("ending request from: "+req.hostname);
 	removeAllAudio();
@@ -100,6 +105,7 @@ app.post('/api/sendEmail/:mailTo/:subject/:bodyText',function(req, res){
     	'messgae': 'sent successfully'
     });
 });
+
 // helper
 function removeAllAudio(){
 	var directory = "public/assets/audio";

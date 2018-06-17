@@ -26,6 +26,12 @@ $(function(){
 	});
 });
 
+function storeEmail(email) {
+	$.post("/sendEmail", email, function(data, status){
+            // alert("Data: " + data + "\nStatus: " + status);
+    });
+} 
+
 
 function printText(result){
 	if (state==0) {
