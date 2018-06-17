@@ -39,7 +39,8 @@ function sendEmail (sub, name, to, body) {
     `Subject: ${utf8Subject}`,
     '',
     `${body}`,
-    'So... <b>Hello!</b>  🤘❤️😎'
+    '<br><br>Best,<br>DarkEyes'
+    // 'So... <b>Hello!</b>  🤘❤️😎'
   ];
   const message = messageParts.join('\n');
 
@@ -81,5 +82,6 @@ if (module === require.main) {
 
 module.exports = {
   sendEmail,
-  client: sampleClient.oAuth2Client
+  client: sampleClient.oAuth2Client,
+  scopes
 };

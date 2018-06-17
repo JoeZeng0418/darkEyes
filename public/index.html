@@ -4,19 +4,27 @@
     <title></title>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300|Source+Sans+Pro:300" rel="stylesheet">
 </head>
 <body>
-	<button id="startBtn" type="button" name="startBtn">Start My Answer</button>
-    <button id="stopBtn" type="button" name="stopBtn" disabled="true">Finish This Question</button>
-    <div id="query_div">
-    	<h1>query</h1>
+    <div id="title">
+        Dark Eyes
+    </div>
+<!-- 	<button id="startBtn" type="button" name="startBtn">Start</button>
+    <button id="stopBtn" type="button" name="stopBtn" disabled="true">End</button> -->
+    <div id="query_div" class="hidden">
+        <h4>Email To:</h4>
+        <p id="emailTo"></p>
+        <h4>Subject: </h4>
+        <p id="emailSubject"></p>
+    	<h4>body:</h4>
     	<p id="emailBody"></p>
     </div>
     <div class="hidden">
-			<audio id="audio" controls>
-				<source src="" type="audio/mpeg">
-			</audio>
-		</div>
+		<audio id="audio" controls>
+			<source src="" type="audio/mpeg">
+		</audio>
+	</div>
     <script type="text/javascript" src="assets/js/jquery-1.10.2.js"></script>
     <script src="distrib/speech.sdk.bundle.js"></script>
     <script src="scripts/recognition_usage.js"></script>

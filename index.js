@@ -4,6 +4,9 @@ const path = require('path');
 const fs = require('fs');
 // Imports the Google Cloud client library
 const textToSpeech = require('@google-cloud/text-to-speech');
+// email function from send.js
+const send = require('./send.js');
+const sampleClient = require('./sampleclient');
 
 var app = express();
 
@@ -16,6 +19,18 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
 // app.use('/', router);
 // app.use(express.static('public'));
+
+// app.all('/', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   next();
+//  });
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 app.get('/',function(req, res){
 	res.send('public');
@@ -59,16 +74,42 @@ app.get('/api/getAudio/query/:query',function(req, res){
 	  });
 	});
 });
+app.get('/api/getMusic/:filename',function(req, res){
+	// var rstream = fs.createReadStream("public/assets/audio/"+req.params.filename);
+	if (fs.existsSync("public/assets/audio/"+req.params.filename)) {
+		var rstream = fs.createReadStream("public/assets/audio/"+req.params.filename);
+		console.log("sending "+req.params.filename+" through getMusic api");
+	    rstream.pipe(res);
+	} else {
+		res.send("Error: no such file");
+	}
+});
 app.get('/api/end',function(req, res){
+	console.log("ending request from: "+req.hostname);
 	removeAllAudio();
 	res.send("deleted all audio files");
 });
+
+app.post('/api/sendEmail/:mailTo/:subject/:bodyText',function(req, res){
+	console.log("sending email to "+req.params.mailTo);
+	// sending email
+	sampleClient.authenticate(send.scopes)
+    .then(c => send.sendEmail(req.params.subject, "darkEyes", req.params.mailTo, req.params.bodyText))
+    .catch(console.error);
+    res.send({
+    	'messgae': 'sent successfully'
+    });
+});
+// helper
 function removeAllAudio(){
 	var directory = "public/assets/audio";
 	fs.readdir(directory, (err, files) => {
 	  if (err) throw err;
 
 	  for (const file of files) {
+	  	if (file=="askWho.mp3"||file=="askSubject.mp3"||file=="askBody.mp3"||file=="tellSent.mp3") {
+	  		break;
+	  	}
 	    fs.unlink(path.join(directory, file), err => {
 	      if (err) throw err;
 	      console.log('successfully deleted '+file);
@@ -76,6 +117,7 @@ function removeAllAudio(){
 	  }
 	});
 }
+
 app.listen(3000, function(){
 	console.log("server at 3000");
 });
