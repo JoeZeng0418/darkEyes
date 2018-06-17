@@ -40,7 +40,6 @@ function sendEmail (sub, name, to, body) {
     '',
     `${body}`,
     '<br><br>Best,<br>DarkEyes'
-    // 'So... <b>Hello!</b>  🤘❤️😎'
   ];
   const message = messageParts.join('\n');
 
